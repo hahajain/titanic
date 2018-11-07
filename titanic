@@ -1,8 +1,14 @@
-train <- read.csv("/Users/harshitjain/train.csv",header = TRUE)
+Mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
+train <- read.csv("/Users/harshitjain/train.csv",header = TRUE, na.strings=c("",".","NA"))
+train$Embarked[is.na(train$Embarked)]<-Mode(train$Embarked)
 #train$Sex <- as.integer(train$Sex)
 View(train)
 #train$Embarked <- as.integer(train$Embarked)
-test <- read.csv("/Users/harshitjain/test.csv",header = TRUE)
+test <- read.csv("/Users/harshitjain/test.csv",header = TRUE, na.strings=c("",".","NA"))
 #test$Sex <- as.integer(test$Sex)
 #test$Embarked <- as.integer(test$Embarked)
 
@@ -25,4 +31,5 @@ drops <- c("Name", "Ticket", "Cabin")
 Cleansed_data<- updated_age[,!(names(updated_age) %in% drops)]
 
 Cleansed<-dummy.data.frame(Cleansed_data,sep="_")
+
 View(Cleansed)
