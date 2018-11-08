@@ -23,11 +23,11 @@ train_wo_age <- subset(train, is.na(train$Age))
 fit<-lm(Age~Pclass+Survived+SibSp,data= train)
 summary(fit)
 
-train_wo_age$Age <- round(predict(fit,train_nullage))
+train_wo_age$Age <- round(predict(fit,train_wo_age))
 updated_age<-merge(train_w_age,train_wo_age,all=TRUE)
 View(updated_age)
 
-drops <- c("Name", "Ticket", "Cabin")
+drops <- c("Name", "Ticket", "Cabin", "Passenger Id")
 Cleansed_data<- updated_age[,!(names(updated_age) %in% drops)]
 
 Cleansed<-dummy.data.frame(Cleansed_data,sep="_")
